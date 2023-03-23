@@ -1,15 +1,23 @@
 import React from "react";
+import { Routes, Route } from "react-router-dom";
 import Sidebar from "./Sidebar";
 import Count from "./Count";
+import User from "./User";
+import "./Dashboard.css"; // import the CSS file for custom styles
 
 const Dashboard = () => {
   return (
     <>
-      <div className="w-1/4">
-        <Sidebar />
-      </div>
-      <div>
-        <Count />
+      <div className="flex">
+        <div className="w-1/5">
+          <Sidebar />
+        </div>
+        <div className="w-4/5 pr-14 dashboard-content">
+          <Routes>
+            <Route path="/" element={<Count />} />
+            <Route path="/user" element={<User />} />
+          </Routes>
+        </div>
       </div>
     </>
   );

@@ -7,18 +7,18 @@ import Testimonial from "./Testimonial";
 const Hero = () => {
   const navigate = useNavigate();
   const handleStarted = () => {
-    navigate("/login");
+    navigate("/rooms");
   };
 
   return (
     <div>
       <div className="text-white h-screen">
         <div
-          className="relative h-3/4 w-full bg-center bg-cover"
+          className="relative h-screen w-full bg-center bg-cover"
           style={{ backgroundImage: `url(${homeImage})` }}
         >
           <div className="absolute inset-0 bg-black opacity-50"></div>
-          <div className="absolute inset-0">
+          <div className="pt-16 absolute inset-0">
             <div className="container mx-auto flex flex-col items-center px-4 py-16 text-center md:py-32 md:px-10 lg:px-32 ">
               <h1 className="text-4xl font-bold leading-none dark:text-white">
                 Find The Perfect Accommodations!
@@ -41,7 +41,6 @@ const Hero = () => {
             </div>
           </div>
         </div>
-        <Statistic />
       </div>
       <Testimonial />
     </div>

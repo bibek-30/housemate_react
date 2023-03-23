@@ -39,15 +39,15 @@ const Login = () => {
       // if (res.data.status === 200) {
       // setMessage(res.data.message);
       // const { user, token } = res.data;
-      console.log(res.data.token);
-      // please send role of the loggin use also from backend
+      console.log(res);
       localStorage.setItem("token", res.data.token);
-      // localStorage.setItem("user", JSON.stringify(user));
-      // if (res.data.role === 'admin') navigate("/admin"); // add the adnim wala path
-      // if (res.data.role === 'user')
-      // navigate("/")
-      window.location.replace("/");
-      // }
+      localStorage.setItem("user", JSON.stringify(res.data.user));
+      if (res.data.user.role === "admin") {
+        navigate("/dash");
+      } // add the adnim wala path
+      if (res.data.user.role === "user") {
+        navigate("/");
+      }
     } catch (err) {
       setShowToast(true);
 
@@ -161,7 +161,7 @@ const Login = () => {
                 <div className="text-sm font-medium text-gray-500 dark:text-gray-300">
                   Not registered?{" "}
                   <Link
-                    href="#"
+                    to={"/register"}
                     className="text-blue-700 hover:underline dark:text-blue-500"
                   >
                     Create account

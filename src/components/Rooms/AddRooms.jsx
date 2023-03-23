@@ -3,7 +3,6 @@ import axios from "axios";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Toast from "../Navbar/Toast";
-import { useEffect } from "react";
 
 import Navbar from "../Navbar/Navbar";
 
@@ -12,12 +11,24 @@ const AddRooms = () => {
 
   const token = localStorage.getItem("token");
 
-  useEffect(() => {
-    const token = localStorage.getItem("token");
-    if (!token) {
-      navigate("/login");
-    }
-  }, []);
+  if (!token) {
+    navigate("/login");
+  }
+
+  const [inputs, setInputs] = useState([""]);
+  const [amenities, setAmenities] = useState([]);
+
+  const handleAddInput = () => {
+    setInputs([...inputs, ""]);
+    setAmenities(inputs);
+  };
+
+  const handleInputChange = (event, index) => {
+    const newInputs = [...inputs];
+    newInputs[index] = event.target.value;
+    setInputs(newInputs);
+    setAmenities(newInputs);
+  };
 
   const [image, setImage] = useState();
   const [error, seterror] = useState("");
@@ -31,6 +42,7 @@ const AddRooms = () => {
     available: true,
     price: "",
     desc: "",
+    amenities: "",
   });
 
   const test = (e) => {
@@ -46,6 +58,8 @@ const AddRooms = () => {
     }, 3000);
 
     const formData = new FormData();
+    formData.append("data", amenities);
+
     formData.append(
       "data",
       JSON.stringify({
@@ -56,6 +70,7 @@ const AddRooms = () => {
         available: true,
         price: authData.price,
         desc: authData.desc,
+        amenities: amenities,
       })
     );
 
@@ -72,15 +87,15 @@ const AddRooms = () => {
       const response = await axios.post(
         `http://127.0.0.1:8000/api/add-room`,
         formData,
-        headers
+        { headers }
       );
 
-      const { data } = response;
-      if (data.status === 200) {
+      console.log(response);
+      if (response.data.status === 200) {
         navigate(`/`);
       }
     } catch (err) {
-      console.error(err.response.data.message);
+      console.error(err);
       if (err.response && err.response.data && err.response.data.message) {
         seterror(err.respronse.data.message);
       } else {
@@ -147,6 +162,27 @@ const AddRooms = () => {
                   className="bg-black-50 border border-white-300 text-black-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-white-600 dark:border-white-500 dark:placeholder-white-400 dark:text-black"
                   required
                 />
+              </div>
+              <div className="bg-red-100">
+                {inputs.map((input, index) => (
+                  <input
+                    className="border"
+                    key={index}
+                    value={input}
+                    onChange={(event) => handleInputChange(event, index)}
+                  />
+                ))}
+                <button type="button" onClick={handleAddInput}>
+                  Add
+                </button>
+                {amenities.length > 0 && (
+                  <div>
+                    <p>Amenities: {amenities.join(", ")}</p>
+                    <button onClick={() => console.log(amenities)}>
+                      Submit
+                    </button>
+                  </div>
+                )}
               </div>
               <div className="flex flex-col md:flex-row justify-between">
                 <div className="w-full mb-2 md:mr-2 md:mb-0">

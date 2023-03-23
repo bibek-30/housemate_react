@@ -268,7 +268,7 @@ const Registration = () => {
               <div className="text-sm font-medium text-gray-500 dark:text-gray-300">
                 Already registered?{" "}
                 <Link
-                  href="#"
+                  to={"/login"}
                   className="text-blue-700 hover:underline dark:text-blue-500"
                 >
                   Sign In

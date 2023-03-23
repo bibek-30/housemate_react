@@ -13,7 +13,7 @@ import Profile from "./components/Navbar/Profile";
 import ProtectedRoute from "./components/protected-route/protected-route";
 import Dashboard from "./components/Dashboard/Dashboard";
 import User from "./components/Dashboard/User";
-import Count from "./components/Dashboard/Count";
+import RoomData from "./components/Dashboard/RoomData";
 
 function App() {
   return (
@@ -21,15 +21,17 @@ function App() {
       <Routes>
         <Route path="/login" element={<Login />} />
         <Route path="/" element={<Landing />} />
-        <Route path="/dash/" element={<Count />}>
-          <Route path="hello" element={<Landing />} />
+        <Route path="/dash/" element={<Dashboard />}>
+          <Route path="user" element={<User />} />
+          <Route path="rooms" element={<RoomData />} />
         </Route>
 
-        <Route path="/user" element={<User />} />
+        {/* <Route path="/user" element={<User />} /> */}
+        <Route path="/data" element={<RoomData />} />
+        <Route path="/register" element={<Registration />} />
 
         <Route element={<ProtectedRoute />}>
           <Route path="/add-room" element={<AddRooms />} />
-          <Route path="/register" element={<Registration />} />
           <Route path="/rooms" element={<Rooms />} />
           <Route path="/room/:id" element={<Details />} />
           <Route path="/booking" element={<Booking />} />

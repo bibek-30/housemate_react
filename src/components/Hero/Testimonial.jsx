@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 const Testimonial = () => {
   return (
     <>
-      <div className="container border">
+      <div className="">
         <div className="bg-white">
           <div className="container xl:max-w-7xl mx-auto px-4 py-16 lg:px-8 lg:py-32">
             <div className="relative">
