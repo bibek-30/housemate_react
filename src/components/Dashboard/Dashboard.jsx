@@ -3,7 +3,7 @@ import { Routes, Route } from "react-router-dom";
 import Sidebar from "./Sidebar";
 import Count from "./Count";
 import User from "./User";
-import "./Dashboard.css"; // import the CSS file for custom styles
+import RoomData from "./RoomData";
 
 const Dashboard = () => {
   return (
@@ -16,6 +16,7 @@ const Dashboard = () => {
           <Routes>
             <Route path="/" element={<Count />} />
             <Route path="/user" element={<User />} />
+            <Route path="/rooms" element={<RoomData />} />
           </Routes>
         </div>
       </div>

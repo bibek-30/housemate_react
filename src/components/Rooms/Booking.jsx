@@ -12,6 +12,7 @@ const Booking = ({ roomId }) => {
   const [booking_amount, set_booking_amount] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
+  const [showBooking, setShowBooking] = useState(false);
 
   let checkout = new KhaltiCheckout(config);
 
@@ -41,7 +42,8 @@ const Booking = ({ roomId }) => {
         setErrorMessage("");
         setStartDate("");
         setEndDate("");
-        navigate("/");
+        setShowBooking(false);
+        navigate("/profile");
       }
     } catch (error) {
       // Booking failed
@@ -51,73 +53,103 @@ const Booking = ({ roomId }) => {
     }
   };
 
-  function isDateRangeBooked(startDate, endDate) {
-    let bookedRanges;
-    for (let i = 0; i < bookedRanges.length; i++) {
-      const bookedStart = new Date(bookedRanges[i].startDate);
-      const bookedEnd = new Date(bookedRanges[i].endDate);
-      const start = new Date(startDate);
-      const end = new Date(endDate);
-      if (
-        (start >= bookedStart && start <= bookedEnd) ||
-        (end >= bookedStart && end <= bookedEnd)
-      ) {
-        return true;
-      }
-    }
-    return false;
-  }
-
   return (
-    <form onSubmit={handleSubmit}>
-      {errorMessage && <p>{errorMessage}</p>}
-      {successMessage && <p>{successMessage}</p>}
-
-      <label htmlFor="start_date">Start date:</label>
-      <input
-        type="date"
-        id="start_date"
-        value={startDate}
-        onChange={(event) => setStartDate(event.target.value)}
-        min={new Date().toISOString().split("T")[0]} // set minimum date to today
-        max={endDate || ""} // set maximum date to end date, or empty string if end date not selected
-        required
-      />
-      <br />
-      <label htmlFor="end_date">End date:</label>
-      <input
-        type="date"
-        id="end_date"
-        value={endDate}
-        onChange={(event) => setEndDate(event.target.value)}
-        min={startDate || new Date().toISOString().split("T")[0]} // set minimum date to start date, or today if start date not selected
-        max={new Date().toISOString().split("T")[0]} // set maximum date to today
-        required
-        disabled={isDateRangeBooked(startDate, endDate)} // disable the input field if the selected date range is already booked
-      />
-
-      <label htmlFor="book_amount">Booking Amount:</label>
-      <input
-        className="bg-black-50 border border-black text-black-900 text-sm rounded-lg focus:ring-blue-500 focus:border-black p-2.5 dark:bg-white-600 dark:border-black  dark:text-black"
-        type="number"
-        id="booking_amount"
-        value={booking_amount}
-        onChange={(event) => set_booking_amount(event.target.value)}
-      />
-      <br />
-      <div>
-        <button onClick={() => checkout.show({ amount: 1000 })}>
-          Pay with khalti
-        </button>
-      </div>
+    <>
       <button
-        className="bg-blue-500   hover:bg-blue-700 text-white font-bold py-2 px-4
-      rounded-full focus:outline-none focus:shadow-outline"
-        type="submit"
+        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full focus:outline-none focus:shadow-outline"
+        onClick={() => setShowBooking(true)}
       >
-        Book room
+        Book Room
       </button>
-    </form>
+      {showBooking && (
+        <div className="fixed top-0 left-0 right-0 bottom-0 flex items-center justify-center">
+          <div className="bg-white rounded-lg shadow-lg pl-28 pr-28 pt-10 pb-10 mx-4">
+            <form onSubmit={handleSubmit}>
+              <div className="mb-4">
+                {errorMessage && (
+                  <p className="text-red-500 text-sm">{errorMessage}</p>
+                )}
+                {successMessage && (
+                  <p className="text-green-500 text-sm">{successMessage}</p>
+                )}
+              </div>
+              <div className="mb-4">
+                <label
+                  htmlFor="start_date"
+                  className="block text-gray-700 font-bold mb-2"
+                >
+                  Start date:
+                </label>
+                <input
+                  type="date"
+                  id="start_date"
+                  value={startDate}
+                  onChange={(event) => setStartDate(event.target.value)}
+                  required
+                  className="border rounded-lg py-2 px-3 w-full focus:outline-none focus:ring-blue-500 focus:border-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-300"
+                />
+              </div>
+              <div className="mb-4">
+                <label
+                  htmlFor="end_date"
+                  className="block text-gray-700 font-bold mb-2"
+                >
+                  End date:
+                </label>
+                <input
+                  type="date"
+                  id="end_date"
+                  value={endDate}
+                  onChange={(event) => setEndDate(event.target.value)}
+                  required
+                  className="border rounded-lg py-2 px-3 w-full focus:outline-none focus:ring-blue-500 focus:border-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-300"
+                />
+              </div>
+              {/* <div className="mb-4">
+                <label
+                  htmlFor="book_amount"
+                  className="block text-gray-700 font-bold mb-2"
+                >
+                  Booking Amount:
+                </label>
+                <input
+                  className="bg-black-50 border border-black text-black-900 text-sm rounded-lg focus:ring-blue-500 focus:border-black p-2.5 dark:bg-white-600 dark:border-black dark:text-black"
+                  type="number"
+                  id="booking_amount"
+                  value={booking_amount}
+                  onChange={(event) => set_booking_amount(event.target.value)}
+                />
+              </div> */}
+              <div className="mb-4" style={{ textAlign: "center" }}>
+                <button
+                  className="bg-purple-800 text-white font-bold focus:outline-none py-2 px-2 focus:shadow-outline rounded"
+                  onClick={() => checkout.show({ amount: 1000 })}
+                >
+                  Pay with khalti
+                </button>
+              </div>
+
+              <div className="mb-4 flex justify-between items-center gap-4">
+                <button
+                  className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                  type="submit"
+                  style={{ fontSize: "1.2rem", width: "8rem", height: "3rem" }}
+                >
+                  Okay
+                </button>
+                <button
+                  className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                  onClick={() => setShowBooking(false)}
+                  style={{ fontSize: "1.2rem", width: "8rem", height: "3rem" }}
+                >
+                  Cancel
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
+    </>
   );
 };
 

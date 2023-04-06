@@ -23,13 +23,14 @@ const Registration = () => {
     gender: "",
     email: "",
     password: "",
+    role: "user",
     mobile_number: "",
     confirm_password: "",
   });
 
   const register = (e) => {
     e.preventDefault();
-    // setShowToast(true);
+    setShowToast(true);
     setTimeout(() => {
       setShowToast(false);
     }, 10000);
@@ -38,19 +39,26 @@ const Registration = () => {
       name: authData.name,
       gender: authData.gender,
       email: authData.email,
+      role: "user",
       password: authData.password,
       confirm_password: authData.confirm_password,
       mobile_number: authData.mobile_number,
     };
-    console.log(data);
     axios
       .post(`http://127.0.0.1:8000/api/register`, data)
       .then((response) => {
+        console.log(response);
+
         if (response.data.status === 200) {
           navigate(`/`);
+          localStorage.setItem("token", response.data.token);
+          localStorage.setItem("user", JSON.stringify(response.data.user));
         }
       })
       .catch(function (error) {
+        console.log(error);
+        console.log(error.response.data.message);
+
         if (
           error.response &&
           error.response.data &&
@@ -101,6 +109,7 @@ const Registration = () => {
                   placeholder="Jhon Doe"
                   required
                 />
+                <span className="text-white-100">{error.name}</span>
               </div>
               <div>
                 <label

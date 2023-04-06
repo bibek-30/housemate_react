@@ -23,9 +23,10 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setShowToast(true);
     setTimeout(() => {
       setShowToast(false);
-    }, 3000);
+    }, 10000);
 
     const formData = new FormData();
     formData.append("email", email);
@@ -36,9 +37,7 @@ const Login = () => {
       // setShowToast(true);
 
       const res = await Axios.post(`/login`, formData);
-      // if (res.data.status === 200) {
-      // setMessage(res.data.message);
-      // const { user, token } = res.data;
+
       console.log(res);
       localStorage.setItem("token", res.data.token);
       localStorage.setItem("user", JSON.stringify(res.data.user));

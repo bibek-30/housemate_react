@@ -2,12 +2,16 @@ import React from "react";
 import axios from "axios";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Toast from "../Navbar/Toast";
+import { useLocation } from "react-router-dom";
 
+import Toast from "../Navbar/Toast";
 import Navbar from "../Navbar/Navbar";
 
 const AddRooms = () => {
   const navigate = useNavigate();
+  const location = useLocation();
+  const locationData = location.state.locationData;
+  console.log(locationData.address);
 
   const token = localStorage.getItem("token");
 
@@ -36,9 +40,9 @@ const AddRooms = () => {
 
   const [authData, setAuthData] = useState({
     title: "",
-    city: "",
-    state: "",
-    zip: "",
+    latitude: "",
+    longitude: "",
+    address: "",
     available: true,
     price: "",
     desc: "",
@@ -64,18 +68,19 @@ const AddRooms = () => {
       "data",
       JSON.stringify({
         title: authData.title,
-        city: authData.city,
-        state: authData.state,
-        zip: authData.zip,
+        latitude: locationData.longitude,
+        longitude: locationData.latitude,
+        address: locationData.address,
+        amenities: amenities,
         available: true,
         price: authData.price,
         desc: authData.desc,
-        amenities: amenities,
       })
     );
 
     formData.append("image", image);
     console.log(formData);
+    console.log(token);
 
     const headers = {
       "Content-Type": "multipart/form-data",
@@ -111,13 +116,13 @@ const AddRooms = () => {
       role="dialog"
     >
       <Navbar />
-      <div className=" flex items-center justify-center min-h-screen">
-        <div className="relative bg-white rounded-lg shadow dark:bg-blue-600">
+      <div className="flex items-center justify-center min-h-screen">
+        <div className="relative bg-white rounded-lg shadow dark:bg-blue-600 w-3/4">
           <div className="px-6 py-6 lg:px-8">
             <h3 className="mb-4 text-xl font-medium text-gray-900 dark:text-white">
               Add Rooms
             </h3>
-            <form className="space-y-6" action="#">
+            <form className="space-y-6">
               <div>
                 <label
                   htmlFor="title"
@@ -163,6 +168,7 @@ const AddRooms = () => {
                   required
                 />
               </div>
+
               <div className="bg-red-100">
                 {inputs.map((input, index) => (
                   <input
@@ -184,77 +190,7 @@ const AddRooms = () => {
                   </div>
                 )}
               </div>
-              <div className="flex flex-col md:flex-row justify-between">
-                <div className="w-full mb-2 md:mr-2 md:mb-0">
-                  <label
-                    htmlFor="city"
-                    className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                  >
-                    City
-                  </label>
-                  <div className="relative">
-                    <input
-                      name="city"
-                      id="city"
-                      value={authData.city}
-                      onChange={(e) => {
-                        setAuthData({
-                          ...authData,
-                          city: e.target.value,
-                        });
-                      }}
-                      className="bg-black-50 border border-white-300 text-black-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  pr-3 dark:bg-white-600 dark:border-white-500 dark:placeholder-white-400 dark:text-black"
-                      required
-                    />
-                  </div>
-                </div>
-                <div className="w-full mb-2 md:mr-2 md:mb-0">
-                  <label
-                    htmlFor="state"
-                    className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                  >
-                    State
-                  </label>
-                  <div className="relative">
-                    <input
-                      name="state"
-                      id="state"
-                      value={authData.state}
-                      onChange={(e) => {
-                        setAuthData({
-                          ...authData,
-                          state: e.target.value,
-                        });
-                      }}
-                      className="bg-black-50 border border-white-300 text-black-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  pr-3 dark:bg-white-600 dark:border-white-500 dark:placeholder-white-400 dark:text-black"
-                      required
-                    />
-                  </div>
-                </div>
-                <div className="w-full md:ml-2">
-                  <label
-                    htmlFor="zip"
-                    className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                  >
-                    Zip
-                  </label>
-                  <div className="relative">
-                    <input
-                      name="zip"
-                      id="zip"
-                      value={authData.zip}
-                      onChange={(e) => {
-                        setAuthData({
-                          ...authData,
-                          zip: e.target.value,
-                        });
-                      }}
-                      className="bg-black-50 border border-white-300 text-black-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 pr-3 dark:bg-white-600 dark:border-white-500 dark:placeholder-white-400 dark:text-black"
-                      required
-                    />
-                  </div>
-                </div>
-              </div>
+
               <div>
                 <label
                   htmlFor="image"
