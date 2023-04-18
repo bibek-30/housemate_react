@@ -119,7 +119,7 @@ const Search = () => {
                 </div>
                 <div
                   style={{
-                    mHeight: "540px",
+                    minHeight: "540px",
                   }}
                 >
                   <div

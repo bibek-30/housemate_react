@@ -1,13 +1,36 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { BsFillHouseFill } from "react-icons/bs";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faUser,
+  faSignInAlt,
+  faAngleDown,
+  faSignOutAlt,
+} from "@fortawesome/free-solid-svg-icons";
+import { Logout } from "@mui/icons-material";
 
 function Navbar() {
   const [showMenu, setShowMenu] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
 
   const toggleMenu = () => {
     setShowMenu(!showMenu);
   };
+
+  function handleLogout() {
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
+
+    window.location.href = "/login";
+  }
+
+  const userStr = localStorage.getItem("user");
+
+  const user = JSON.parse(userStr);
+  const name = user ? user.name : null;
+
+  // console.log(name);
 
   return (
     <nav
@@ -66,7 +89,7 @@ function Navbar() {
             <li>
               <Link
                 className="block py-2 pl-3 pr-4 text-blue-700 rounded hover:bg-blue-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-white dark:hover:bg-blue-700 dark:hover:text-white md:dark:hover:bg-transparent"
-                to={"/add-room"}
+                to={"/map"}
               >
                 Add Rooms
               </Link>
@@ -76,42 +99,34 @@ function Navbar() {
                 to={"/register "}
                 className="block py-2 pl-3 pr-4 text-blue-700 rounded hover:bg-blue-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-white dark:hover:bg-blue-700 dark:hover:text-white md:dark:hover:bg-transparent"
               >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="h-6 w-6 text-gray-700"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M13 7h5m0 0v10m0-10l-4-4m4 4l-4 4"
-                  />
-                </svg>
+                <FontAwesomeIcon icon={faSignInAlt} /> User Registration
               </Link>
             </li>
-            <li>
-              <Link
-                to={"/profile"}
-                className="block py-2 pl-3 pr-4 text-blue-700 rounded hover:bg-blue-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-white dark:hover:bg-blue-700 dark:hover:text-white md:dark:hover:bg-transparent"
+            <li className="relative">
+              <button
+                className="block py-2 pl-3 pr-4 text-blue-700 rounded hover:bg-blue-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-white dark:hover:bg-blue-700 dark:hover:text-white md:dark:hover:bg-transparent focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                onClick={() => setIsOpen(!isOpen)}
               >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="h-6 w-6 text-gray-700"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M8 17l4 4m0 0l4-4m-4 4V3"
-                  />
-                </svg>
-              </Link>
+                <FontAwesomeIcon icon={faAngleDown} className="mr-2" />
+                {name}
+              </button>
+              {isOpen && (
+                <div className="absolute right-0 z-50 mt-2 w-40 bg-white rounded-md shadow-lg">
+                  <Link
+                    to={"/profile"}
+                    className="block px-4 py-2 text-gray-800 hover:bg-blue-500 hover:text-white"
+                  >
+                    <FontAwesomeIcon icon={faUser} className="mr-2" />
+                    Profile
+                  </Link>
+                  <Link
+                    onClick={handleLogout}
+                    className="block px-4 py-2 text-gray-800 hover:bg-blue-500 hover:text-white"
+                  >
+                    <FontAwesomeIcon icon={faSignOutAlt} /> Logout
+                  </Link>
+                </div>
+              )}
             </li>
           </ul>
         </div>

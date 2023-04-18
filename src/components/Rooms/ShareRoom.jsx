@@ -1,10 +1,14 @@
 import axios from "axios";
 import React, { useState } from "react";
 
-const Test = () => {
+import Toast from "../Navbar/Toast";
+
+const Test = ({ roomId }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [inputs, setInputs] = useState([""]);
   const [conditions, setconditions] = useState([]);
+  const [message, setMessage] = useState([]);
+  const [showToast, setShowToast] = useState(false);
 
   const token = localStorage.getItem("token");
 
@@ -14,17 +18,25 @@ const Test = () => {
 
   function handleSubmit(event) {
     event.preventDefault();
+    setShowToast(true);
+    setTimeout(() => {
+      setShowToast(false);
+      setMessage([]);
+    }, 3000);
 
     let data = { conditions: conditions };
+    console.log(roomId);
 
     axios
-      .post(`http://127.0.0.1:8000/api/shareRoom/2`, data, {
+      .post(`http://127.0.0.1:8000/api/shareRoom/${roomId}`, data, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       })
       .then((response) => {
+        setMessage(response.data.message);
         console.log(response);
+        console.log(response.data.message);
       });
     console.log("Submitted data:", conditions);
   }
@@ -119,11 +131,13 @@ const Test = () => {
                 Close
               </button>
               <button
+                onClick={handleSubmit}
                 type="submit"
                 className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full"
               >
                 Submit
               </button>
+              {showToast && <Toast message={message} />}
             </div>
           </form>
         </div>

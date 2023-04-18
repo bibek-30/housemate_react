@@ -3,7 +3,6 @@ import axios from "axios";
 import { useState, useEffect } from "react";
 
 import ShareRoom from "../Rooms/ShareRoom";
-import HistoryNav from "../BookShare/HistoryNav";
 
 const BookingHistory = () => {
   const token = localStorage.getItem("token");
@@ -32,13 +31,14 @@ const BookingHistory = () => {
 
   return (
     <div className="w-full right-px">
-      <HistoryNav />
       <div className="bg-white rounded-lg shadow-lg">
-        <h1 className="font-bold text-lg text-gray-600 pl-5">
+        {/* <h1 className="font-bold text-lg text-gray-600 pl-5">
           Booking History
-        </h1>
+        </h1> */}
         {errorMessage ? (
-          <p>{errorMessage}</p>
+          <p className="bg-red-100 text-red-800 border border-red-500 py-2 px-4 rounded">
+            {errorMessage}
+          </p>
         ) : (
           <div className="p-6">
             {booking.map((book) => (
@@ -47,12 +47,12 @@ const BookingHistory = () => {
                   <div className="flex">
                     <div>
                       <h2 className="text-lg font-bold mb-2 text-gray-800">
-                        {book.room_title} ({book.location})
+                        {book.room_title} -{book.location}
                       </h2>
                       <p className="text-gray-600 text-sm">
                         ({book.start_date}) - ({book.end_date})
                       </p>
-                      <ShareRoom />
+                      <ShareRoom roomId={book.id} />
                     </div>
                   </div>
                 </div>

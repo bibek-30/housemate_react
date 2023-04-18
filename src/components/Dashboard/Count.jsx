@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faUser,
@@ -6,8 +6,28 @@ import {
   faCalendarAlt,
   faCoins,
 } from "@fortawesome/free-solid-svg-icons";
+import axios from "axios";
 
 const Count = () => {
+  const [user, setUser] = useState("-");
+  const [rooms, setRooms] = useState("-");
+  const [book, setBook] = useState("-");
+  const [payments, setPayments] = useState("-");
+
+  useEffect(() => {
+    axios.get("http://127.0.0.1:8000/api/users/count").then((response) => {
+      setUser(response.data.count);
+    });
+
+    axios.get("http://127.0.0.1:8000/api/room/count").then((response) => {
+      setRooms(response.data);
+    });
+
+    axios.get("http://127.0.0.1:8000/api/book/count").then((response) => {
+      setBook(response.data);
+    });
+  }, []);
+
   return (
     <section className="p-6 my-6 bg-blue-500 text-white dark:bg-gray-800 dark:text-gray-100">
       <div className="container grid grid-cols-1 gap-6 mx-auto sm:grid-cols-2 xl:grid-cols-4">
@@ -19,7 +39,7 @@ const Count = () => {
             />
           </div>
           <div className="flex flex-col justify-center align-middle">
-            <p className="text-3xl font-semibold leading-none">200</p>
+            <p className="text-3xl font-semibold leading-none">{user}</p>
             <p className="capitalize">Users</p>
           </div>
         </div>
@@ -31,7 +51,7 @@ const Count = () => {
             />
           </div>
           <div className="flex flex-col justify-center align-middle">
-            <p className="text-3xl font-semibold leading-none">7500</p>
+            <p className="text-3xl font-semibold leading-none">{rooms}</p>
             <p className="capitalize">Rooms</p>
           </div>
         </div>
@@ -43,7 +63,7 @@ const Count = () => {
             />
           </div>
           <div className="flex flex-col justify-center align-middle">
-            <p className="text-3xl font-semibold leading-none">4.9</p>
+            <p className="text-3xl font-semibold leading-none">{book}</p>
             <p className="capitalize">Bookings</p>
           </div>
         </div>

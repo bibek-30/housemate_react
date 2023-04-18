@@ -6,6 +6,7 @@ import { useLocation } from "react-router-dom";
 
 import Toast from "../Navbar/Toast";
 import Navbar from "../Navbar/Navbar";
+import Map from "../Map/Map";
 
 const AddRooms = () => {
   const navigate = useNavigate();
@@ -21,10 +22,15 @@ const AddRooms = () => {
 
   const [inputs, setInputs] = useState([""]);
   const [amenities, setAmenities] = useState([]);
+  const [showMap, setShowMap] = useState(false);
 
   const handleAddInput = () => {
     setInputs([...inputs, ""]);
     setAmenities(inputs);
+  };
+
+  const toggleMap = () => {
+    setShowMap(!showMap);
   };
 
   const handleInputChange = (event, index) => {
@@ -55,11 +61,11 @@ const AddRooms = () => {
 
   const RoomDetails = async (e) => {
     e.preventDefault();
-
     setShowToast(true);
     setTimeout(() => {
       setShowToast(false);
-    }, 3000);
+      seterror([]);
+    }, 5000);
 
     const formData = new FormData();
     formData.append("data", amenities);
@@ -95,7 +101,8 @@ const AddRooms = () => {
         { headers }
       );
 
-      console.log(response);
+      seterror(response.data);
+
       if (response.data.status === 200) {
         navigate(`/`);
       }
@@ -116,17 +123,51 @@ const AddRooms = () => {
       role="dialog"
     >
       <Navbar />
-      <div className="flex items-center justify-center min-h-screen">
-        <div className="relative bg-white rounded-lg shadow dark:bg-blue-600 w-3/4">
+
+      <div className="flex items-center justify-center min-h-screen bg-gray-200 dark:bg-gray-200">
+        <div className="relative bg-gray-100 dark:bg-white rounded-lg shadow w-3/4">
           <div className="px-6 py-6 lg:px-8">
-            <h3 className="mb-4 text-xl font-medium text-gray-900 dark:text-white">
+            <h3 className="mb-4 text-xl font-medium text-black dark:text-black">
               Add Rooms
             </h3>
+            <div className="App">
+              Set your locations here:
+              <button
+                className=" text-black bg-slate-100 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-white-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-500 dark:hover:bg-white-700 dark:focus:ring-white-800"
+                onClick={toggleMap}
+              >
+                Map
+              </button>
+              {showMap && (
+                <div
+                  style={{
+                    position: "fixed",
+                    top: "100px",
+                    bottom: "20px",
+                    right: "400px",
+                    backgroundColor: "#fff",
+                    padding: "10px",
+                    border: "1px solid #ccc",
+                    boxShadow: "2px 2px 10px rgba(0, 0, 0, 0.3)",
+                    zIndex: 9999,
+                  }}
+                >
+                  <button
+                    style={{ position: "absolute", top: "5px", right: "5px" }}
+                    onClick={toggleMap}
+                  >
+                    X
+                  </button>
+                  <Map />
+                </div>
+              )}
+            </div>
+
             <form className="space-y-6">
               <div>
                 <label
                   htmlFor="title"
-                  className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                  className="block mb-2 text-sm font-medium text-black "
                 >
                   Title
                 </label>
@@ -141,7 +182,7 @@ const AddRooms = () => {
                       title: e.target.value,
                     });
                   }}
-                  className="bg-black-50 border border-white-300 text-black-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-white-600 dark:border-white-500 dark:placeholder-white-400 dark:text-black"
+                  className="bg-white border border-gray-300 dark:border-black text-black dark:text-black text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:placeholder-gray-400"
                   required
                 />
               </div>
@@ -149,7 +190,7 @@ const AddRooms = () => {
               <div>
                 <label
                   htmlFor="price"
-                  className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                  className="block mb-2 text-sm font-medium text-black"
                 >
                   Price per Months
                 </label>
@@ -164,27 +205,42 @@ const AddRooms = () => {
                       price: e.target.value,
                     });
                   }}
-                  className="bg-black-50 border border-white-300 text-black-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-white-600 dark:border-white-500 dark:placeholder-white-400 dark:text-black"
+                  className="bg-black-50 border border-white-300 text-black text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-white-600 dark:border-black dark:placeholder-white-400 dark:text-black"
                   required
                 />
               </div>
 
-              <div className="bg-red-100">
+              <div>
+                <label
+                  htmlFor="price"
+                  className="block mb-2 text-sm font-medium text-black"
+                >
+                  Amenities
+                </label>
                 {inputs.map((input, index) => (
                   <input
-                    className="border"
+                    className="border rounded px-4 py-2 mb-2  border-black ml-2"
                     key={index}
                     value={input}
                     onChange={(event) => handleInputChange(event, index)}
                   />
                 ))}
-                <button type="button" onClick={handleAddInput}>
+                <button
+                  className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                  type="button"
+                  onClick={handleAddInput}
+                >
                   Add
                 </button>
                 {amenities.length > 0 && (
-                  <div>
-                    <p>Amenities: {amenities.join(", ")}</p>
-                    <button onClick={() => console.log(amenities)}>
+                  <div className="flex items-center mt-4">
+                    <p className="font-bold">
+                      Amenities: {amenities.join(", ")}
+                    </p>
+                    <button
+                      className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded ml-4"
+                      onClick={() => console.log(amenities)}
+                    >
                       Submit
                     </button>
                   </div>
@@ -194,7 +250,7 @@ const AddRooms = () => {
               <div>
                 <label
                   htmlFor="image"
-                  className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                  className="block mb-2 text-sm font-medium text-black"
                 >
                   Images
                 </label>
@@ -210,7 +266,7 @@ const AddRooms = () => {
               <div>
                 <label
                   htmlFor="desc"
-                  className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                  className="block mb-2 text-sm font-medium text-black"
                 >
                   Descriptions
                 </label>
@@ -224,21 +280,23 @@ const AddRooms = () => {
                       desc: e.target.value,
                     });
                   }}
-                  className="bg-black-50 border border-white-300 text-black-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-white-600 dark:border-white-500 dark:placeholder-white-400 dark:text-black"
+                  className="bg-black-50 border border-black text-black-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-white-600 dark:border-white-500 dark:placeholder-white-400 dark:text-black"
                   required
                 />
               </div>
               {showToast && <Toast message={error} />}
 
-              <button
-                onClick={(e) => {
-                  RoomDetails(e);
-                }}
-                type="submit"
-                className="w-full text-black bg-slate-100 hover:bg-white-800 focus:ring-4 focus:outline-none focus:ring-white-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-white-600 dark:hover:bg-white-700 dark:focus:ring-white-800"
-              >
-                Submit
-              </button>
+              <div className="flex items-center justify-center">
+                <button
+                  onClick={(e) => {
+                    RoomDetails(e);
+                  }}
+                  type="submit"
+                  className="w-1/6 text-black bg-slate-100 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-white-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-500 dark:hover:bg-white-700 dark:focus:ring-white-800"
+                >
+                  Submit
+                </button>
+              </div>
             </form>
           </div>
         </div>

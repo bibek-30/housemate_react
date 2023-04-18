@@ -62,32 +62,6 @@ const Profile = () => {
               </div>
             </div>
             <div className="pb-16"></div>
-
-            <div className="w-full lg:w-full">
-              <div className="bg-white rounded-lg shadow-lg">
-                <div className="py-4 px-6 text-center">
-                  <img
-                    src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp"
-                    alt="avatar"
-                    className="rounded-full w-32 mx-auto mb-4"
-                  />
-                  <p className="text-gray-600 text-sm mb-1">
-                    Full Stack Developer
-                  </p>
-                  <p className="text-gray-600 text-sm mb-4">
-                    Bay Area, San Francisco, CA
-                  </p>
-                  <div className="flex justify-center">
-                    <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full mr-2">
-                      Follow
-                    </button>
-                    <button className="border border-blue-500 hover:bg-blue-500 text-blue-500 hover:text-white font-bold py-2 px-4 rounded-full">
-                      Message
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>
           </div>
 
           <div className="w-full lg:w-2/3">
@@ -132,7 +106,7 @@ const Profile = () => {
                 </div>
               </div>
             </div>
-            <div className="pb-16"></div>
+            <div className="pb-10"></div>
             <div className="w-full right-px">
               <div className="bg-white rounded-lg shadow-lg">
                 <History />

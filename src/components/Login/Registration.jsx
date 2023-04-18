@@ -17,7 +17,6 @@ const Registration = () => {
   const handleShowPassword = () => {
     setShowPassword(!showPassword);
   };
-
   const [authData, setAuthData] = useState({
     name: "",
     gender: "",
@@ -33,7 +32,8 @@ const Registration = () => {
     setShowToast(true);
     setTimeout(() => {
       setShowToast(false);
-    }, 10000);
+      seterror([]);
+    }, 5000);
 
     let data = {
       name: authData.name,
@@ -87,7 +87,7 @@ const Registration = () => {
             <h3 className="mb-4 text-xl font-medium text-gray-900 dark:text-white">
               Sign up to our platform
             </h3>
-            <form className="space-y-6" action="#">
+            <form className="space-y-6">
               <div>
                 <label
                   htmlFor="name"
@@ -199,7 +199,7 @@ const Registration = () => {
                   </label>
                   <div className="relative">
                     <input
-                      type="password"
+                      type={showPassword ? "text" : "password"}
                       name="password"
                       id="password"
                       placeholder="••••••••"
@@ -235,7 +235,7 @@ const Registration = () => {
                   </label>
                   <div className="relative">
                     <input
-                      type="password"
+                      type={showPassword ? "text" : "password"}
                       name="confirm_password"
                       id="confirm_password"
                       placeholder="••••••••"
@@ -274,11 +274,11 @@ const Registration = () => {
               >
                 Create account
               </button>
-              <div className="text-sm font-medium text-gray-500 dark:text-gray-300">
+              <div className="text-sm font-medium text-white dark:text-white">
                 Already registered?{" "}
                 <Link
                   to={"/login"}
-                  className="text-blue-700 hover:underline dark:text-blue-500"
+                  className="text-white hover:underline dark:text-white underline hover:font-bold"
                 >
                   Sign In
                 </Link>

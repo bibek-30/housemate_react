@@ -84,6 +84,13 @@ function Details() {
                     ))}
                   </ul>
                 </div>
+                <div>
+                  {room?.isShared === 1 ? (
+                    <p>{room.condition}</p>
+                  ) : (
+                    <h1 className="text-3xl font-bold pl-16">{room.title}</h1>
+                  )}
+                </div>
               </div>
             </div>
           </div>

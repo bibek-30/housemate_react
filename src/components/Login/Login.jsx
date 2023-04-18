@@ -9,13 +9,11 @@ import Axios from "../utils/Axios";
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [error, seterror] = useState(null);
-  // const [message, setMessage] = useState(null);
   const [rememberMe, setRememberMe] = useState(false);
-  // const [showModal, setShowModal] = useState(false);
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
   const [showToast, setShowToast] = useState(false);
+  const [error, seterror] = useState(null);
 
   const handleShowPassword = () => {
     setShowPassword(!showPassword);
@@ -26,7 +24,8 @@ const Login = () => {
     setShowToast(true);
     setTimeout(() => {
       setShowToast(false);
-    }, 10000);
+      seterror([]);
+    }, 5000);
 
     const formData = new FormData();
     formData.append("email", email);
@@ -69,13 +68,13 @@ const Login = () => {
       >
         <Navbar />
 
-        <div className="flex items-center justify-center min-h-screen">
-          <div className="relative bg-white rounded-lg shadow dark:bg-blue-600">
-            <div className="px-6 py-6 lg:px-8">
+        <div className="flex items-center justify-center  min-h-screen">
+          <div className="pl-10 pr-10 relative bg-white rounded-lg shadow dark:bg-blue-600">
+            <div className="px-6 py-6 lg:px-4">
               <h3 className="mb-4 text-xl font-medium text-gray-900 dark:text-white">
                 Sign in to our platform
               </h3>
-              <form onSubmit={handleSubmit} className="space-y-6" action="#">
+              <form onSubmit={handleSubmit} className="space-y-6">
                 <div>
                   <label
                     htmlFor="email"
@@ -113,7 +112,7 @@ const Login = () => {
                   />
                   <button
                     type="button"
-                    className="absolute inset-y-0 mt-3.5 right-10 flex items-center text-sm leading-5 text-gray-400 hover:text-gray-500 focus:outline-none"
+                    className="absolute inset-y-0 mt-3.5 right-20 flex items-center text-sm leading-5 text-gray-400 hover:text-gray-500 focus:outline-none"
                     onClick={handleShowPassword}
                   >
                     {showPassword ? (
@@ -123,29 +122,10 @@ const Login = () => {
                     )}
                   </button>
                 </div>
-                <div className="flex justify-between">
-                  <div className="flex items-start">
-                    <div className="flex items-center h-5">
-                      <input
-                        id="remember"
-                        type="checkbox"
-                        value={rememberMe}
-                        onChange={() => setRememberMe(!rememberMe)}
-                        className="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300 dark:bg-gray-600 dark:border-gray-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800"
-                      />
-                    </div>
-                    <label
-                      htmlFor="remember"
-                      className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"
-                    >
-                      Remember me
-                    </label>
-                  </div>
-                  <Link
-                    href="#"
-                    className="text-sm text-blue-700 hover:underline dark:text-blue-500"
-                  >
-                    Lost Password?
+                <div className="flex">
+                  <div className="flex items-start"></div>
+                  <Link className="text-sm text-white hover:underline dark:text-white">
+                    Forget Password?
                   </Link>
                 </div>
                 <button
@@ -161,7 +141,7 @@ const Login = () => {
                   Not registered?{" "}
                   <Link
                     to={"/register"}
-                    className="text-blue-700 hover:underline dark:text-blue-500"
+                    className="text-white hover:underline dark:text-white"
                   >
                     Create account
                   </Link>

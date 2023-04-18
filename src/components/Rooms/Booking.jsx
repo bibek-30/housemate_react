@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 
 import KhaltiCheckout from "khalti-checkout-web";
 import config from "../utils/KhaltiConfig";
+import Toast from "../Navbar/Toast";
 
 const Booking = ({ roomId }) => {
   const navigate = useNavigate();
@@ -20,6 +21,9 @@ const Booking = ({ roomId }) => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    setTimeout(() => {
+      setErrorMessage([]);
+    }, 5000);
 
     try {
       const response = await axios.post(
@@ -48,7 +52,10 @@ const Booking = ({ roomId }) => {
     } catch (error) {
       // Booking failed
       console.error(error);
-      setErrorMessage(error.response.data.error);
+      if (error.response.data.error) {
+        setErrorMessage(error.response.data.error);
+      }
+      setErrorMessage(error.response.data.message);
       setSuccessMessage("");
     }
   };
