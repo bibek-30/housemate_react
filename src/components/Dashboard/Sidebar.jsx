@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { BsFillHouseFill } from "react-icons/bs";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faUser,
@@ -44,7 +45,10 @@ const Sidebar = () => {
           } md:block`}
         >
           <div className="flex items-center justify-center h-14 bg-gray-900">
-            <h1 className="text-white text-2xl font-semibold">Logo</h1>
+            <h1 className="text-white flex items-center">
+              <BsFillHouseFill className="w-8 h-8" />
+              <span className="ml-1 text-xl font-bold">HouseMates</span>
+            </h1>
           </div>
           <ul className="py-4">
             <Link to={"/dash"}>

@@ -112,21 +112,7 @@ const Booking = ({ roomId }) => {
                   className="border rounded-lg py-2 px-3 w-full focus:outline-none focus:ring-blue-500 focus:border-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-300"
                 />
               </div>
-              {/* <div className="mb-4">
-                <label
-                  htmlFor="book_amount"
-                  className="block text-gray-700 font-bold mb-2"
-                >
-                  Booking Amount:
-                </label>
-                <input
-                  className="bg-black-50 border border-black text-black-900 text-sm rounded-lg focus:ring-blue-500 focus:border-black p-2.5 dark:bg-white-600 dark:border-black dark:text-black"
-                  type="number"
-                  id="booking_amount"
-                  value={booking_amount}
-                  onChange={(event) => set_booking_amount(event.target.value)}
-                />
-              </div> */}
+
               <div className="mb-4" style={{ textAlign: "center" }}>
                 <button
                   className="bg-purple-800 text-white font-bold focus:outline-none py-2 px-2 focus:shadow-outline rounded"

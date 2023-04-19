@@ -64,46 +64,80 @@ const Search = () => {
     }
     return mapProps;
   };
-
-  // useEffect(() => {
-  //   async function fetchData() {
-  //     const res = await axios.get("http://127.0.0.1:8000/api/get-room");
-  //     setRoomData(res.data);
-  //   }
-  //   fetchData();
-  // }, []);
-
-  // const handleSubmit = async (e) => {
-  //   e.preventDefault();
-
-  //   const data = {
-  //     address: authData.city,
-  //   };
-
-  //   const response = await axios.post(`http://127.0.0.1:8000/api/feed`, data);
-  //   console.log(response.data);
-  //   setRoomData(response.data);
-  // };
   return (
     <div>
       <Navbar />
       <div>
-        <form onSubmit={handleSubmit}>
-          <input
-            type="text"
-            className="w-1/4 py-2 px-4 border border-gray-400 rounded-lg shadow-sm focus:outline-none focus:border-blue-400"
-            value={authData.city}
-            onChange={(e) => {
-              setAuthData({
-                ...authData,
-                city: e.target.value,
-              });
-            }}
-          />
-          <button className="px-4 py-2 font-semibold text-white bg-blue-500 rounded-lg hover:bg-blue-400 focus:outline-none focus:bg-blue-400">
-            Search
-          </button>
-        </form>
+        <div className="pl-2 pt-2">
+          <form onSubmit={handleSubmit} className="flex">
+            <div>
+              <label
+                htmlFor="City"
+                className="block text-gray-700 font-bold mb-2"
+              >
+                City
+              </label>
+              <input
+                type="text"
+                className="w-20 sm:w-auto py-2 px-4 border border-gray-400 rounded-lg shadow-sm focus:outline-none focus:border-blue-400"
+                value={authData.city}
+                onChange={(e) => {
+                  setAuthData({
+                    ...authData,
+                    city: e.target.value,
+                  });
+                }}
+              />
+            </div>
+
+            <div>
+              <label
+                htmlFor="minPrice"
+                className="block text-gray-700 font-bold mb-2"
+              >
+                Min price
+              </label>
+              <input
+                type="number"
+                id="minPrice"
+                className="w-20 sm:w-auto py-2 px-4 border border-gray-400 rounded-lg shadow-sm focus:outline-none focus:border-blue-400"
+                value={authData.minPrice}
+                onChange={(e) => {
+                  setAuthData({
+                    ...authData,
+                    minPrice: e.target.value,
+                  });
+                }}
+              />
+            </div>
+            <div>
+              <label
+                htmlFor="maxPrice"
+                className="block text-gray-700 font-bold mb-2"
+              >
+                Max price
+              </label>
+              <input
+                type="number"
+                id="maxPrice"
+                className="w-20 sm:w-auto py-2 px-4 border border-gray-400 rounded-lg shadow-sm focus:outline-none focus:border-blue-400"
+                value={authData.maxPrice}
+                onChange={(e) => {
+                  setAuthData({
+                    ...authData,
+                    maxPrice: e.target.value,
+                  });
+                }}
+              />
+            </div>
+            <div className="pt-8">
+              <button className="px-4 py-2 font-semibold text-white bg-blue-500 rounded-lg hover:bg-blue-400 focus:outline-none focus:bg-blue-400">
+                Search
+              </button>
+            </div>
+          </form>
+        </div>
+
         <div className="flex">
           <div className="w-7/12 overflow-auto scrollbar-none hover:scrollbar-thin">
             <section className="py-6 sm:py-12 dark:bg-white dark:text-white">

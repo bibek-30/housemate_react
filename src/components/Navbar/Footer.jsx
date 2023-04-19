@@ -1,4 +1,5 @@
 import React from "react";
+import { BsFillHouseFill } from "react-icons/bs";
 
 const Footer = () => {
   return (
@@ -7,12 +8,15 @@ const Footer = () => {
         <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
           <div>
             <div className="flex justify-center text-white sm:justify-start text-3xl">
-              <h1>Housemates</h1>
+              <h1 className="text-white flex items-center">
+                <BsFillHouseFill className="w-8 h-8" />
+                <span className="ml-1 text-xl font-bold">HouseMates</span>
+              </h1>
             </div>
 
             <p className="mt-6 max-w-md text-center leading-relaxed text-white sm:max-w-xs sm:text-left">
-              Lorem ipsum dolor, sit amet consectetur adipisicing elit. Incidunt
-              consequuntur amet culpa cum itaque neque.
+              HouseMates is free online room rental system which provides user
+              with both listing and booking to same user.
             </p>
 
             <ul className="mt-8 flex justify-center gap-6 sm:justify-start md:gap-8">
@@ -95,7 +99,7 @@ const Footer = () => {
                 <ul className="space-y-4 text-sm">
                   <li>
                     <a
-                      className="text-gray-700 transition hover:text-gray-700/75"
+                      className="text-white transition hover:text-white/75"
                       href="/"
                     >
                       Company History
@@ -104,7 +108,7 @@ const Footer = () => {
 
                   <li>
                     <a
-                      className="text-gray-700 transition hover:text-gray-700/75"
+                      className="text-white transition hover:text-white/75"
                       href="/"
                     >
                       Meet the Team
@@ -113,7 +117,7 @@ const Footer = () => {
 
                   <li>
                     <a
-                      className="text-gray-700 transition hover:text-gray-700/75"
+                      className="text-white transition hover:text-white/75"
                       href="/"
                     >
                       Employee Handbook
@@ -122,7 +126,7 @@ const Footer = () => {
 
                   <li>
                     <a
-                      className="text-gray-700 transition hover:text-gray-700/75"
+                      className="text-white transition hover:text-white/75"
                       href="/"
                     >
                       Careers
@@ -139,37 +143,19 @@ const Footer = () => {
                 <ul className="space-y-4 text-sm">
                   <li>
                     <a
-                      className="text-gray-700 transition hover:text-gray-700/75"
-                      href="/"
+                      className="text-white transition hover:text-white/75"
+                      href="/listrooms"
                     >
-                      Web Development
+                      List Room
                     </a>
                   </li>
 
                   <li>
                     <a
-                      className="text-gray-700 transition hover:text-gray-700/75"
-                      href="/"
+                      className="text-white transition hover:text-white/75"
+                      href="/booking/steps"
                     >
-                      Web Design
-                    </a>
-                  </li>
-
-                  <li>
-                    <a
-                      className="text-gray-700 transition hover:text-gray-700/75"
-                      href="/"
-                    >
-                      Marketing
-                    </a>
-                  </li>
-
-                  <li>
-                    <a
-                      className="text-gray-700 transition hover:text-gray-700/75"
-                      href="/"
-                    >
-                      Google Ads
+                      Book Room
                     </a>
                   </li>
                 </ul>
@@ -183,8 +169,8 @@ const Footer = () => {
                 <ul className="space-y-4 text-sm">
                   <li>
                     <a
-                      className="text-gray-700 transition hover:text-gray-700/75"
-                      href="/"
+                      className="text-white transition hover:text-white/75"
+                      href="/faqs"
                     >
                       FAQs
                     </a>
@@ -192,26 +178,10 @@ const Footer = () => {
 
                   <li>
                     <a
-                      className="text-gray-700 transition hover:text-gray-700/75"
-                      href="/"
+                      className="text-white transition hover:text-white/75"
+                      href="/support"
                     >
                       Support
-                    </a>
-                  </li>
-
-                  <li>
-                    <a
-                      className="group flex justify-center gap-1.5 sm:justify-start"
-                      href="/"
-                    >
-                      <span className="text-gray-700 transition group-hover:text-gray-700/75">
-                        Live Chat
-                      </span>
-
-                      <span className="relative flex h-2 w-2">
-                        <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-teal-400 opacity-75"></span>
-                        <span className="relative inline-flex h-2 w-2 rounded-full bg-teal-500"></span>
-                      </span>
                     </a>
                   </li>
                 </ul>
@@ -242,7 +212,9 @@ const Footer = () => {
                       />
                     </svg>
 
-                    <span className="text-gray-700">john@doe.com</span>
+                    <span className="text-white">
+                      info@housemates@gmail.com
+                    </span>
                   </a>
                 </li>
 
@@ -266,7 +238,7 @@ const Footer = () => {
                       />
                     </svg>
 
-                    <span className="text-gray-700">0123456789</span>
+                    <span className="text-white">9804329343</span>
                   </a>
                 </li>
 
@@ -291,8 +263,8 @@ const Footer = () => {
                     />
                   </svg>
 
-                  <address className="-mt-0.5 not-italic text-gray-700">
-                    213 Lane, London, United Kingdom
+                  <address className="-mt-0.5 not-italic text-white">
+                    Itahari, Nepal
                   </address>
                 </li>
               </ul>
@@ -302,11 +274,11 @@ const Footer = () => {
 
         <div className="mt-12 border-t border-gray-100 pt-6">
           <div className="text-center sm:flex sm:justify-between sm:text-left">
-            <p className="text-sm text-gray-500">
+            <p className="text-sm text-white">
               <span className="block sm:inline">All rights reserved.</span>
 
               <a
-                className="inline-block text-teal-600 underline transition hover:text-teal-600/75"
+                className="inline-block text-white underline transition hover:text-black"
                 href="/"
               >
                 Terms & Conditions
@@ -315,15 +287,15 @@ const Footer = () => {
               <span>&middot;</span>
 
               <a
-                className="inline-block text-teal-600 underline transition hover:text-teal-600/75"
+                className="inline-block text-white underline transition hover:text-black"
                 href="/"
               >
                 Privacy Policy
               </a>
             </p>
 
-            <p className="mt-4 text-sm text-gray-500 sm:order-first sm:mt-0">
-              &copy; 2022 Company Name
+            <p className="mt-4 text-sm text-white sm:order-first sm:mt-0">
+              &copy; 2022 HouseMates
             </p>
           </div>
         </div>

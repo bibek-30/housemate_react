@@ -45,19 +45,18 @@ const Profile = () => {
                   alt="avatar"
                   className="rounded-full w-32 mx-auto mb-4"
                 />
-                <p className="text-gray-600 text-sm mb-1">
-                  Full Stack Developer
+                <p className="text-gray-600  mb-4 text-lg font-bold">
+                  {userData.name}
                 </p>
-                <p className="text-gray-600 text-sm mb-4">
-                  Bay Area, San Francisco, CA
-                </p>
+                <p className="text-gray-600 text-sm mb-1">{userData.email}</p>
+
                 <div className="flex justify-center">
                   <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full mr-2">
-                    Follow
-                  </button>
-                  <button className="border border-blue-500 hover:bg-blue-500 text-blue-500 hover:text-white font-bold py-2 px-4 rounded-full">
                     Message
                   </button>
+                  {/* <button className="border border-blue-500 hover:bg-blue-500 text-blue-500 hover:text-white font-bold py-2 px-4 rounded-full">
+                    Message
+                  </button> */}
                 </div>
               </div>
             </div>
@@ -112,76 +111,9 @@ const Profile = () => {
                 <History />
               </div>
             </div>
-            {/* <div className="w-full right-px">
-              <div className="bg-white rounded-lg shadow-lg">
-                <h1 className="font-bold text-lg text-gray-600 pl-5">
-                  Booking History
-                </h1>
-                {errorMessage ? (
-                  <p>{errorMessage}</p>
-                ) : (
-                  <div className="p-6">
-                    {booking.map((book) => (
-                      <div className="flex flex-wrap mb-4" key={book.id}>
-                        <div className="w-full">
-                          <div className="flex">
-                            <div>
-                              <h2 className="text-lg font-bold mb-2 text-gray-800">
-                                {book.room_title} ({book.location})
-                              </h2>
-                              <p className="text-gray-600 text-sm">
-                                ({book.start_date}) - ({book.end_date})
-                              </p>
-                              <ShareRoom />
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                )}
-              </div>
-            </div> */}
-            {/* <hr></hr>
-            <div className="w-full right-px">
-              <div className="bg-white rounded-lg shadow-lg">
-                <h1 className="font-bold text-lg text-gray-600 pl-5">
-                  Shared Room
-                </h1>
-                {errorMessage ? (
-                  <p>{errorMessage}</p>
-                ) : (
-                  <div className="p-6">
-                    {booking.map((book) => (
-                      <div className="flex flex-wrap mb-4" key={book.id}>
-                        <div className="w-full">
-                          <div className="flex">
-                            <div>
-                              <h2 className="text-lg font-bold mb-2 text-gray-800">
-                                {book.room_title} ({book.location})
-                              </h2>
-                              <p className="text-gray-600 text-sm">
-                                ({book.start_date}) - ({book.end_date})
-                              </p>
-                              <div className="space-x-2">
-                                <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full mt-2">
-                                  Edit
-                                </button>
-                                <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full mt-2">
-                                  Remove
-                                </button>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    ))}
-                  </div> */}
-            {/* )} */}
           </div>
         </div>
       </div>
-      {/* </div> */}
       {/* </div> */}
     </>
   );

@@ -1,11 +1,6 @@
 import myKey from "./KhaltiKey";
 import axios from "axios";
-
-// const token = localStorage.getItem("token");
-
-// const headers = {
-//   Authorization: `Bearer ${token}`,
-// };
+import { toast } from "react-toastify";
 
 let config = {
   // replace this key with yours
@@ -34,10 +29,12 @@ let config = {
         .catch((error) => {
           console.log(error);
         });
+
+      toast.success("Payment made successfully", {
+        position: toast.POSITION.TOP_CENTER,
+      });
     },
-    // onError handler is optional
     onError(error) {
-      // handle errors
       console.log(error);
     },
     onClose() {

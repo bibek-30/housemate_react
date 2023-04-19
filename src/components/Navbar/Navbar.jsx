@@ -8,7 +8,6 @@ import {
   faAngleDown,
   faSignOutAlt,
 } from "@fortawesome/free-solid-svg-icons";
-import { Logout } from "@mui/icons-material";
 
 function Navbar() {
   const [showMenu, setShowMenu] = useState(false);

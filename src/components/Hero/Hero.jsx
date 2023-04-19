@@ -1,9 +1,7 @@
 import React from "react";
 import homeImage from "../../assets/hero-img.jpg";
 import { useNavigate } from "react-router-dom";
-import Statistic from "./Statistic";
 import Testimonial from "./Testimonial";
-import MapTest from "../Test";
 
 const Hero = () => {
   const navigate = useNavigate();

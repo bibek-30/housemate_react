@@ -1,45 +1,33 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
+import Axios from "../utils/Axios";
 
-const RoomData = () => {
-  let sn = 1;
-
-  const [roomData, setRoomData] = useState([]);
+const Payments = () => {
+  const [payments, setPayments] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const [roomDataPerPage] = useState(10);
+  const [paymentsPerPage] = useState(10);
 
-  const [isImageOpen, setIsImageOpen] = useState(false);
-  const [selectedImage, setSelectedImage] = useState("");
-
-  const handleImageClick = (image) => {
-    setSelectedImage(image);
-    setIsImageOpen(true);
-  };
-
-  const handleImageClose = () => {
-    setIsImageOpen(false);
-  };
   useEffect(() => {
     async function fetchData() {
-      const response = await axios.get(`http://127.0.0.1:8000/api/get-room`);
-      console.log(response);
-      setRoomData(response.data);
+      const response = await Axios(`showPayment`, {});
+      setPayments(response.data);
     }
     fetchData();
   }, []);
 
-  const indexOfLastPayment = currentPage * roomDataPerPage;
-  const indexOfFirstPayment = indexOfLastPayment - roomDataPerPage;
-  const currentroomData = roomData.slice(
+  // Get current payments
+  const indexOfLastPayment = currentPage * paymentsPerPage;
+  const indexOfFirstPayment = indexOfLastPayment - paymentsPerPage;
+  const currentPayments = payments.slice(
     indexOfFirstPayment,
     indexOfLastPayment
   );
 
+  // Change page
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   return (
-    <div className="relative overflow-x-auto">
-      <h1 className="font-bold text-xl">Rooms</h1>
+    <div className="overflow-x-auto">
+      <h1 className="font-bold text-xl">Payments</h1>
       <div className="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
         <div className="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
           <table className="min-w-full divide-y divide-gray-200">
@@ -55,26 +43,26 @@ const RoomData = () => {
                   scope="col"
                   className="px-6 py-3 text-xs font-bold text-left text-gray-500 uppercase tracking-wider"
                 >
-                  Room Title
+                  Transaction No
                 </th>
                 <th
                   scope="col"
                   className="px-6 py-3 text-xs font-bold text-left text-gray-500 uppercase tracking-wider"
                 >
-                  Locations
+                  Account Holder
                 </th>
 
                 <th
                   scope="col"
                   className="px-6 py-3 text-xs font-bold text-left text-gray-500 uppercase tracking-wider"
                 >
-                  Price Per Months
+                  Amount
                 </th>
                 <th
                   scope="col"
                   className="px-6 py-3 text-xs font-bold text-left text-gray-500 uppercase tracking-wider"
                 >
-                  Image
+                  Date
                 </th>
                 <th
                   scope="col"
@@ -85,47 +73,32 @@ const RoomData = () => {
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-200">
-              {currentroomData.map((item, index) => (
+              {currentPayments.map((item, index) => (
                 <tr key={item.id}>
                   <td className="px-6 py-4 whitespace-nowrap">{index + 1}</td>
-                  <td className="px-6 py-4 whitespace-nowrap">{item.title}</td>
                   <td className="px-6 py-4 whitespace-nowrap">
-                    {item.address}
+                    {item.payment_id}
+                  </td>
+                  <td className="px-6 py-4 whitespace-nowrap">
+                    {item.payer_name}
                   </td>
 
+                  <td className="px-6 py-4 whitespace-nowrap">{item.amount}</td>
                   <td className="px-6 py-4 whitespace-nowrap">
+                    {item.paid_at}
+                  </td>
+                  <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                     <a
-                      key={item.image}
-                      onClick={() => handleImageClick(item.image)}
+                      href="#"
+                      className="text-indigo-600 hover:text-indigo-900"
                     >
-                      <img src={item.image} alt="room" className="room-image" />
+                      View
                     </a>
-                  </td>
-
-                  <td className="px-6 py-4 whitespace-nowrap">{item.price}</td>
-                  <td className="px-6 py-3 text-xs font-bold text-right text-gray-500 uppercase">
-                    <button className="px-3 py-1 mr-2 text-sm font-medium text-white bg-blue-500 rounded-lg hover:bg-blue-400 focus:outline-none focus:bg-blue-400">
-                      Edit
-                    </button>
-                    <button className="px-3 py-1 ml-2 text-sm font-medium text-white bg-red-500 rounded-lg hover:bg-red-400 focus:outline-none focus:bg-red-400">
-                      Block
-                    </button>
                   </td>
                 </tr>
               ))}
             </tbody>
           </table>
-          {isImageOpen && (
-            <div className="image-modal">
-              <div className="image-modal-content">
-                <span className="close" onClick={handleImageClose}>
-                  &times;
-                </span>
-                <img src={selectedImage} alt="modal" className="modal-image" />
-              </div>
-            </div>
-          )}
-
           <nav className="bg-white px-4 py-3 flex items-center justify-between sm:px-6">
             <div className="hidden sm:block">
               <p className="text-sm text-gray-700">
@@ -133,12 +106,12 @@ const RoomData = () => {
                 <span className="font-medium">{indexOfFirstPayment + 1}</span>{" "}
                 to{" "}
                 <span className="font-medium">
-                  {indexOfLastPayment > roomData.length
-                    ? roomData.length
+                  {indexOfLastPayment > payments.length
+                    ? payments.length
                     : indexOfLastPayment}
                 </span>{" "}
-                of <span className="font-medium">{roomData.length}</span>{" "}
-                roomData
+                of <span className="font-medium">{payments.length}</span>{" "}
+                payments
               </p>
             </div>
             <div className="flex-1 flex justify-between sm:justify-end">
@@ -154,13 +127,13 @@ const RoomData = () => {
               <button
                 onClick={() =>
                   paginate(
-                    currentPage === Math.ceil(roomData.length / roomDataPerPage)
+                    currentPage === Math.ceil(payments.length / paymentsPerPage)
                       ? currentPage
                       : currentPage + 1
                   )
                 }
                 disabled={
-                  currentPage === Math.ceil(roomData.length / roomDataPerPage)
+                  currentPage === Math.ceil(payments.length / paymentsPerPage)
                 }
                 className="bg-white hover:bg-gray-100 text-gray-700 font-semibold py-2 px-4 border border-gray-400 rounded shadow"
               >
@@ -174,4 +147,4 @@ const RoomData = () => {
   );
 };
 
-export default RoomData;
+export default Payments;

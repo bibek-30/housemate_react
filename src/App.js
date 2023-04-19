@@ -21,6 +21,11 @@ import ShareHistory from "./components/BookShare/ShareHistory";
 import RoomHistory from "./components/BookShare/RoomHistory";
 import Logout from "./components/Login/Logout";
 import ChartComponent from "./components/Dashboard/Chart";
+import Payments from "./components/Dashboard/Payments";
+import FaqList from "./components/Miscelleneous/FAQs";
+import CustomerSupport from "./components/Miscelleneous/Support";
+import RentalProcess from "./components/Miscelleneous/ListRoom";
+import BookingSteps from "./components/Miscelleneous/BookingRooms";
 
 function App() {
   return (
@@ -32,13 +37,11 @@ function App() {
         <Route path="/dash//*" element={<Dashboard />}>
           <Route path="user" element={<User />} />
           <Route path="rooms" element={<RoomData />} />
+          <Route path="payment" element={<Payments />} />
         </Route>
 
         <Route path="/test" element={<MapTest />} />
 
-        {/* <Route path="/test//*" element={<History />}>
-          <Route to="book" element={<BookingHistory />} />
-        </Route> */}
         <Route path="/history//*" element={<History />}>
           <Route path="roomshared" element={<ShareHistory />} />
           <Route path="room-history" element={<RoomHistory />} />
@@ -47,9 +50,13 @@ function App() {
         <Route path="/register" element={<Registration />} />
         <Route path="/room/:id" element={<Details />} />
         <Route path="/rooms" element={<Rooms />} />
-        <Route path="/chart" element={<ChartComponent />} />
+        <Route path="payment" element={<Payments />} />
 
-        {/* <Route path="/test" element={<History />} /> */}
+        <Route path="/chart" element={<ChartComponent />} />
+        <Route path="/faqs" element={<FaqList />} />
+        <Route path="/support" element={<CustomerSupport />} />
+        <Route path="/listrooms" element={<RentalProcess />} />
+        <Route path="/booking/steps" element={<BookingSteps />} />
 
         <Route element={<ProtectedRoute />}>
           <Route path="/map" element={<Map />} />

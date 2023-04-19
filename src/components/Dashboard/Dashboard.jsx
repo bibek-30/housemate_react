@@ -4,6 +4,7 @@ import Sidebar from "./Sidebar";
 import Count from "./Count";
 import User from "./User";
 import RoomData from "./RoomData";
+import Payments from "./Payments";
 
 const Dashboard = () => {
   return (
@@ -17,6 +18,7 @@ const Dashboard = () => {
             <Route path="/" element={<Count />} />
             <Route path="/user" element={<User />} />
             <Route path="/rooms" element={<RoomData />} />
+            <Route path="/payment" element={<Payments />} />
           </Routes>
         </div>
       </div>
